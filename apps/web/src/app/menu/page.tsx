@@ -20,7 +20,7 @@ export const metadata = {
 
 export default async function MenuPage() {
   const items = await getMenuItems();
-  const categories = Array.from(new Set(items.map((i) => i.category)));
+  const categories = Array.from(new Set(items.map((i: { category: string }) => i.category)));
 
   return (
     <>
