@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Seeding database...");
+  console.log("🌱 Seeding database with real menu...");
 
   // Clear existing data
   await prisma.orderItem.deleteMany();
@@ -24,224 +24,312 @@ async function main() {
     },
   });
 
-  // Create menu items
-  const menuItems = await prisma.menuItem.createMany({
+  // ── REAL MENU (prices in ETB) ─────────────────────────────────────────────
+  await prisma.menuItem.createMany({
     data: [
-      // Cakes
+
+      // ── CAKES (Whole) ──────────────────────────────────────────────────────
       {
-        name: "Velvet Dream Cake",
+        name: "Torta Chocolate Cake",
         description:
-          "A luscious red velvet cake layered with silky cream cheese frosting and finished with a dusting of cocoa.",
-        price: 8.5,
-        category: "Cakes",
-        image: "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=800&auto=format&fit=crop",
-        available: true,
-        featured: true,
-      },
-      {
-        name: "Dark Chocolate Torte",
-        description:
-          "Intensely rich dark chocolate cake with ganache glaze, topped with edible gold flakes.",
-        price: 9.5,
-        category: "Cakes",
+          "A full, celebration-sized chocolate torte — rich dark chocolate layers with silky ganache. Perfect for birthdays and special occasions. Serves 8–10.",
+        price: 2483,
+        category: "Whole Cakes",
         image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop",
         available: true,
+        featured: false,
+      },
+      {
+        name: "Torta Cheese Cake",
+        description:
+          "A full New York-style cheesecake — thick, creamy, and impossibly smooth on a buttery biscuit base. Serves 8–10.",
+        price: 2483,
+        category: "Whole Cakes",
+        image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop",
+        available: true,
+        featured: false,
+      },
+
+      // ── SLICES ─────────────────────────────────────────────────────────────
+      {
+        name: "Chocolate Cake Slice",
+        description:
+          "A generous slice of our signature chocolate cake — dense, moist layers of cocoa sponge with velvety chocolate buttercream.",
+        price: 373,
+        category: "Slices",
+        image: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=800&auto=format&fit=crop",
+        available: true,
         featured: true,
       },
       {
-        name: "Vanilla Mille-Feuille",
+        name: "Cheese Cake Slice",
         description:
-          "Delicate puff pastry layered with Tahitian vanilla custard cream and a pristine fondant glaze.",
-        price: 7.5,
-        category: "Cakes",
+          "A thick, creamy slice of classic cheesecake on a golden biscuit crust. Perfectly set, lightly tangy, utterly indulgent.",
+        price: 373,
+        category: "Slices",
+        image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop",
+        available: true,
+        featured: true,
+      },
+      {
+        name: "Brownie Cake Slice",
+        description:
+          "A thick, fudgy brownie slice — crispy on the outside, soft and gooey within, with chunks of dark chocolate throughout.",
+        price: 300,
+        category: "Slices",
+        image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop",
+        available: true,
+        featured: false,
+      },
+      {
+        name: "Lemon Cake Slice",
+        description:
+          "A bright, citrusy lemon sponge with zesty lemon curd filling and a delicate white glaze. Light yet satisfying.",
+        price: 355,
+        category: "Slices",
         image: "https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
       {
-        name: "Salted Caramel Cheesecake",
+        name: "Tiramisu",
         description:
-          "New York-style cheesecake with a buttery graham crust, crowned with house-made salted caramel.",
-        price: 8.0,
-        category: "Cakes",
-        image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop",
-        available: true,
-        featured: false,
-      },
-      // Pastries
-      {
-        name: "Almond Croissant",
-        description:
-          "Buttery, flaky croissant filled with rich almond frangipane and topped with toasted almonds.",
-        price: 4.5,
-        category: "Pastries",
-        image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop",
+          "Classic Italian tiramisu — layers of espresso-soaked ladyfingers, mascarpone cream, and a dusting of premium cocoa.",
+        price: 355,
+        category: "Slices",
+        image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop",
         available: true,
         featured: true,
       },
       {
-        name: "Pistachio Éclair",
+        name: "Fasting Chocolate Cake",
         description:
-          "Classic French éclair filled with pistachio pastry cream and glazed with white chocolate.",
-        price: 5.5,
+          "Our most talked-about item. A rich, indulgent chocolate cake made entirely without animal products — perfect during fasting season. A must-try.",
+        price: 391,
+        category: "Slices",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop",
+        available: true,
+        featured: true,
+      },
+
+      // ── DESSERTS ───────────────────────────────────────────────────────────
+      {
+        name: "Brownie with Ice Cream",
+        description:
+          "A warm, gooey brownie served with a generous scoop of vanilla ice cream and a drizzle of hot chocolate sauce.",
+        price: 537,
+        category: "Desserts",
+        image: "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=800&auto=format&fit=crop",
+        available: true,
+        featured: true,
+      },
+      {
+        name: "Cookie Skillet & Ice Cream",
+        description:
+          "A loaded cookie waffle skillet topped with scoops of chocolate and vanilla ice cream, an Oreo cookie, rainbow sprinkles, and a chocolate drizzle.",
+        price: 537,
+        category: "Desserts",
+        image: "/images/cookie-skillet.jpg",
+        available: true,
+        featured: true,
+      },
+      {
+        name: "Freak Shake",
+        description:
+          "The ultimate dessert experience — a towering thick shake loaded with a slice of chocolate cake, whipped cream, and chocolate drizzle. Legendary.",
+        price: 729,
+        category: "Desserts",
+        image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop",
+        available: true,
+        featured: true,
+      },
+
+      // ── PASTRIES ───────────────────────────────────────────────────────────
+      {
+        name: "Croissant Sandwich",
+        description:
+          "A flaky, buttery croissant filled with fresh avocado, layered ingredients, and served beautifully on a dark plate.",
+        price: 405,
         category: "Pastries",
-        image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&auto=format&fit=crop",
+        image: "/images/mango-juice.jpg",
         available: true,
         featured: false,
       },
       {
-        name: "Berry Tart",
+        name: "Cinnamon Oats with Fruit",
         description:
-          "Crisp butter pastry shell filled with vanilla crème pâtissière, topped with seasonal fresh berries.",
-        price: 6.5,
+          "Warm, creamy cinnamon oats topped with fresh seasonal fruit. A wholesome and comforting start to your morning.",
+        price: 263,
         category: "Pastries",
-        image: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1517093157656-b9eccef91cb1?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
       {
-        name: "Cinnamon Morning Bun",
+        name: "Fasting Donut",
         description:
-          "Soft, pillowy bun swirled with cinnamon sugar and drizzled with orange-zest glaze.",
-        price: 3.5,
+          "A light, golden donut made without animal products — soft, slightly sweet, and perfect for fasting season treats.",
+        price: 192,
+        category: "Pastries",
+        image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop",
+        available: true,
+        featured: false,
+      },
+      {
+        name: "Fasting Cinnamon Roll",
+        description:
+          "A soft, spiraled cinnamon roll crafted without dairy — warmly spiced and glazed with a light sugar drizzle.",
+        price: 154,
         category: "Pastries",
         image: "https://images.unsplash.com/photo-1620921568956-c44f4bc71d72?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
-      // Drinks
       {
-        name: "Signature Hot Chocolate",
+        name: "Cheese Donut",
         description:
-          "70% dark chocolate melted in steamed milk, finished with house-made marshmallows.",
-        price: 5.0,
-        category: "Drinks",
-        image: "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?w=800&auto=format&fit=crop",
-        available: true,
-        featured: true,
-      },
-      {
-        name: "Rose Latte",
-        description:
-          "Delicate rose syrup with single-origin espresso and velvety steamed oat milk.",
-        price: 5.5,
-        category: "Drinks",
-        image: "https://images.unsplash.com/photo-1561047029-3000c68339ca?w=800&auto=format&fit=crop",
+          "A pillowy fried donut filled with creamy cheese — slightly savoury, perfectly sweet. One is never enough.",
+        price: 242,
+        category: "Pastries",
+        image: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
       {
-        name: "Matcha Mist",
+        name: "Chocolate Chip Cookies",
         description:
-          "Ceremonial-grade matcha whisked with honey and steamed milk, a serene Japanese-inspired sip.",
-        price: 5.5,
-        category: "Drinks",
-        image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=800&auto=format&fit=crop",
-        available: true,
-        featured: false,
-      },
-      {
-        name: "Iced Vanilla Brew",
-        description:
-          "Cold-brewed coffee steeped for 18 hours, sweetened with Madagascar vanilla syrup, served over ice.",
-        price: 4.5,
-        category: "Drinks",
-        image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop",
-        available: true,
-        featured: false,
-      },
-      // Specials
-      {
-        name: "Chef's Dessert Platter",
-        description:
-          "A curated selection of three seasonal desserts chosen by our pastry chef — a different experience every visit.",
-        price: 18.0,
-        category: "Specials",
+          "Fresh-baked cookies packed with dark and milk chocolate chips — crispy edges, chewy centre, served warm.",
+        price: 107,
+        category: "Pastries",
         image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop",
         available: true,
+        featured: false,
+      },
+
+      // ── DRINKS ─────────────────────────────────────────────────────────────
+      {
+        name: "Mango Smoothie",
+        description:
+          "Fresh mango blended to a smooth, velvety pour — served chilled in a signature bottle glass, garnished with a fresh mango slice.",
+        price: 237,
+        category: "Drinks",
+        image: "/images/mango-juice.jpg",
+        available: true,
         featured: true,
       },
       {
-        name: "Afternoon Tea Set",
+        name: "Strawberry Mojito",
         description:
-          "A tiered selection of finger sandwiches, scones with clotted cream, and seasonal pastries. Serves two.",
-        price: 32.0,
+          "Fresh strawberries muddled with mint, lime, and sparkling water — a refreshing, vibrant non-alcoholic mojito.",
+        price: 237,
+        category: "Drinks",
+        image: "https://images.unsplash.com/photo-1497534446932-c925b458314e?w=800&auto=format&fit=crop",
+        available: true,
+        featured: false,
+      },
+      {
+        name: "Frozen Lemonade",
+        description:
+          "A thick, icy blend of fresh lemon juice, sugar, and crushed ice. Tangy, sweet, and incredibly refreshing.",
+        price: 390,
+        category: "Drinks",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop",
+        available: true,
+        featured: false,
+      },
+
+      // ── SPECIALS ───────────────────────────────────────────────────────────
+      {
+        name: "Afternoon Tea",
+        description:
+          "An elegant afternoon tea service — a curated tiered selection of cakes, pastries, and light bites. The perfect occasion treat. Serves two.",
+        price: 1998,
         category: "Specials",
         image: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=800&auto=format&fit=crop",
+        available: true,
+        featured: true,
+      },
+      {
+        name: "Waffle Omelette",
+        description:
+          "A savoury waffle omelette — crispy on the outside, fluffy within. A unique fusion brunch item unlike anything else on the menu.",
+        price: 506,
+        category: "Specials",
+        image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
     ],
   });
 
-  // Create gallery images
+  // ── GALLERY ───────────────────────────────────────────────────────────────
   await prisma.galleryImage.createMany({
     data: [
       {
-        url: "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&auto=format&fit=crop",
-        caption: "Our intimate dining space",
+        url: "/images/cafe-interior.jpg",
+        caption: "Our elegant dining space",
         sortOrder: 1,
       },
       {
-        url: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&auto=format&fit=crop",
-        caption: "Velvet Dream Cake",
+        url: "/images/cookie-skillet.jpg",
+        caption: "Cookie Skillet & Ice Cream",
         sortOrder: 2,
       },
       {
-        url: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&auto=format&fit=crop",
-        caption: "Freshly baked éclairs",
+        url: "/images/mango-juice.jpg",
+        caption: "Fresh Mango Smoothie",
         sortOrder: 3,
       },
       {
-        url: "https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=800&auto=format&fit=crop",
-        caption: "Mille-Feuille perfection",
+        url: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop",
+        caption: "Chocolate Torte",
         sortOrder: 4,
       },
       {
-        url: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop",
-        caption: "Dark Chocolate Torte",
+        url: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop",
+        caption: "New York Cheesecake",
         sortOrder: 5,
       },
       {
-        url: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop",
-        caption: "Freshly baked croissants",
+        url: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop",
+        caption: "The Freak Shake",
         sortOrder: 6,
-      },
-      {
-        url: "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?w=800&auto=format&fit=crop",
-        caption: "Our signature hot chocolate",
-        sortOrder: 7,
-      },
-      {
-        url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop",
-        caption: "Chef's Dessert Platter",
-        sortOrder: 8,
       },
       {
         url: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=800&auto=format&fit=crop",
         caption: "Afternoon Tea Service",
+        sortOrder: 7,
+      },
+      {
+        url: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop",
+        caption: "Fresh Donuts",
+        sortOrder: 8,
+      },
+      {
+        url: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop",
+        caption: "Classic Tiramisu",
         sortOrder: 9,
       },
     ],
   });
 
-  // Create sample reservations
+  // ── SAMPLE DATA ───────────────────────────────────────────────────────────
   await prisma.reservation.createMany({
     data: [
       {
-        name: "Sarah Mitchell",
-        email: "sarah@example.com",
-        phone: "+1 555-0101",
+        name: "Sara Tesfaye",
+        email: "sara@example.com",
+        phone: "+251 911 000 001",
         date: "2026-04-20",
         time: "14:00",
         guests: 2,
-        notes: "Anniversary celebration",
+        notes: "Birthday celebration",
         status: "confirmed",
       },
       {
-        name: "James Okafor",
-        email: "james@example.com",
-        phone: "+1 555-0102",
+        name: "Dawit Bekele",
+        email: "dawit@example.com",
+        phone: "+251 911 000 002",
         date: "2026-04-21",
         time: "16:30",
         guests: 4,
@@ -250,67 +338,48 @@ async function main() {
     ],
   });
 
-  // Create sample orders with items
-  const items = await prisma.menuItem.findMany({ take: 4 });
-  await prisma.order.create({
-    data: {
-      customerName: "Amelia Chen",
-      email: "amelia@example.com",
-      phone: "+1 555-0201",
-      total: 22.0,
-      status: "completed",
-      items: {
-        create: [
-          {
-            menuItemId: items[0].id,
-            quantity: 2,
-            price: items[0].price,
-          },
-          {
-            menuItemId: items[2].id,
-            quantity: 1,
-            price: items[2].price,
-          },
-        ],
-      },
-    },
-  });
+  const items = await prisma.menuItem.findMany({ orderBy: { createdAt: "asc" } });
 
-  await prisma.order.create({
-    data: {
-      customerName: "Noah Williams",
-      email: "noah@example.com",
-      phone: "+1 555-0202",
-      total: 15.5,
-      status: "pending",
-      notes: "Please add extra cream on the side",
-      items: {
-        create: [
-          {
-            menuItemId: items[1].id,
-            quantity: 1,
-            price: items[1].price,
-          },
-          {
-            menuItemId: items[3].id,
-            quantity: 1,
-            price: items[3].price,
-          },
-        ],
+  if (items.length >= 7) {
+    await prisma.order.create({
+      data: {
+        customerName: "Meron Haile",
+        email: "meron@example.com",
+        phone: "+251 911 000 101",
+        total: items[2].price * 2 + items[6].price,
+        status: "completed",
+        items: {
+          create: [
+            { menuItemId: items[2].id, quantity: 2, price: items[2].price },
+            { menuItemId: items[6].id, quantity: 1, price: items[6].price },
+          ],
+        },
       },
-    },
-  });
+    });
 
-  console.log("✅ Database seeded successfully!");
-  console.log("📧 Admin email: admin@thedessertbar.com");
-  console.log("🔑 Admin password: admin123");
+    await prisma.order.create({
+      data: {
+        customerName: "Yonas Girma",
+        email: "yonas@example.com",
+        phone: "+251 911 000 102",
+        total: items[7].price + items[1].price,
+        status: "pending",
+        notes: "Extra whipped cream please",
+        items: {
+          create: [
+            { menuItemId: items[7].id, quantity: 1, price: items[7].price },
+            { menuItemId: items[1].id, quantity: 1, price: items[1].price },
+          ],
+        },
+      },
+    });
+  }
+
+  console.log("✅ Database seeded with real menu!");
+  console.log("📍 Location: Bole, Atlas, beside Azzeman Hotel, Addis Ababa");
+  console.log("📧 Admin: admin@thedessertbar.com / admin123");
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .catch((e) => { console.error(e); process.exit(1); })
+  .finally(async () => { await prisma.$disconnect(); });

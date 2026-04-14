@@ -74,12 +74,12 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-cream-200 opacity-70">
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="text-gold-500 flex-shrink-0 mt-0.5" />
-                <span>123 Patisserie Lane, Old Town, NY 10001</span>
+                <span>Bole, Atlas — beside Azzeman Hotel,<br />Addis Ababa, Ethiopia</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="text-gold-500 flex-shrink-0" />
-                <a href="tel:+15550012345" className="hover:text-gold-400 transition-colors">
-                  +1 (555) 001-2345
+                <a href="https://www.instagram.com/the_dessert_bar_addis" target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">
+                  @the_dessert_bar_addis
                 </a>
               </li>
             </ul>

@@ -42,7 +42,7 @@ export default function ContactClient() {
                     Address
                   </p>
                   <p className="text-chocolate-500 text-sm leading-relaxed">
-                    123 Patisserie Lane,<br />Old Town, New York, NY 10001
+                    Bole, Atlas — beside Azzeman Hotel,<br />Addis Ababa, Ethiopia
                   </p>
                 </div>
               </div>
@@ -55,10 +55,12 @@ export default function ContactClient() {
                     Phone
                   </p>
                   <a
-                    href="tel:+15550012345"
+                    href="https://www.instagram.com/the_dessert_bar_addis"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-chocolate-500 text-sm hover:text-gold-600 transition-colors"
                   >
-                    +1 (555) 001-2345
+                    @the_dessert_bar_addis
                   </a>
                 </div>
               </div>
@@ -71,10 +73,10 @@ export default function ContactClient() {
                     Email
                   </p>
                   <a
-                    href="mailto:hello@thedessertbar.com"
+                    href="mailto:thedessertbaraddis@gmail.com"
                     className="text-chocolate-500 text-sm hover:text-gold-600 transition-colors"
                   >
-                    hello@thedessertbar.com
+                    thedessertbaraddis@gmail.com
                   </a>
                 </div>
               </div>
@@ -99,12 +101,13 @@ export default function ContactClient() {
             <div className="mt-10 bg-cream-200 h-64 flex items-center justify-center border border-cream-300">
               <div className="text-center text-chocolate-400">
                 <MapPin size={32} className="mx-auto mb-2 text-gold-500" />
-                <p className="text-sm">123 Patisserie Lane, Old Town, NY</p>
+                <p className="text-sm font-medium text-chocolate-600">Bole, Atlas — beside Azzeman Hotel</p>
+                <p className="text-xs text-chocolate-400 mt-1">Addis Ababa, Ethiopia</p>
                 <a
-                  href="https://maps.google.com"
+                  href="https://maps.app.goo.gl/55npJ2CkU4CuLvAB6"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gold-600 text-xs mt-2 block hover:underline"
+                  className="text-gold-600 text-xs mt-3 block hover:underline"
                 >
                   Open in Google Maps →
                 </a>
