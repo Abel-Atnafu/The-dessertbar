@@ -100,7 +100,7 @@ export default function LoginPage() {
         </form>
 
         <p className="text-gray-600 text-xs text-center mt-8">
-          Demo: admin@thedessertbar.com / admin123
+          admin@thedessertbar.com
         </p>
       </div>
     </div>
