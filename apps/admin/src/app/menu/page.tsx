@@ -17,7 +17,7 @@ export default async function AdminMenuPage() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Menu Management</h1>
           <p className="text-gray-500 text-sm mt-1">
-            {items.length} items — {items.filter((i) => i.available).length} available
+            {items.length} items — {items.filter((i: { available: boolean }) => i.available).length} available
           </p>
         </div>
         <MenuClient initialItems={JSON.parse(JSON.stringify(items))} />
