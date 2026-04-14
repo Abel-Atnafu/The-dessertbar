@@ -129,7 +129,7 @@ async function main() {
           "A loaded cookie waffle skillet topped with scoops of chocolate and vanilla ice cream, an Oreo cookie, rainbow sprinkles, and a chocolate drizzle.",
         price: 537,
         category: "Desserts",
-        image: "/images/cookie-skillet.jpg",
+        image: "/images/cookie-skillet.png",
         available: true,
         featured: true,
       },
@@ -151,7 +151,7 @@ async function main() {
           "A flaky, buttery croissant filled with fresh avocado, layered ingredients, and served beautifully on a dark plate.",
         price: 405,
         category: "Pastries",
-        image: "/images/mango-juice.jpg",
+        image: "/images/mango-juice.png",
         available: true,
         featured: false,
       },
@@ -213,7 +213,7 @@ async function main() {
           "Fresh mango blended to a smooth, velvety pour — served chilled in a signature bottle glass, garnished with a fresh mango slice.",
         price: 237,
         category: "Drinks",
-        image: "/images/mango-juice.jpg",
+        image: "/images/mango-juice.png",
         available: true,
         featured: true,
       },
@@ -266,17 +266,17 @@ async function main() {
   await prisma.galleryImage.createMany({
     data: [
       {
-        url: "/images/cafe-interior.jpg",
+        url: "/images/cafe-interior.png",
         caption: "Our elegant dining space",
         sortOrder: 1,
       },
       {
-        url: "/images/cookie-skillet.jpg",
+        url: "/images/cookie-skillet.png",
         caption: "Cookie Skillet & Ice Cream",
         sortOrder: 2,
       },
       {
-        url: "/images/mango-juice.jpg",
+        url: "/images/mango-juice.png",
         caption: "Fresh Mango Smoothie",
         sortOrder: 3,
       },
