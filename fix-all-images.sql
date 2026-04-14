@@ -13,7 +13,7 @@ UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1533134242443
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%cheesecake%';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%strawberry cake%';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%lemon cake%';
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%tiramisu%';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1550461716-dbf266b328a4?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%tiramisu%';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%brownie%';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&auto=format&fit=crop' WHERE "image" IS NULL AND "name" ILIKE '%fasting%' AND "name" ILIKE '%cake%';
 

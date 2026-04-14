@@ -22,7 +22,7 @@ const FALLBACK_FEATURED = [
     description: "Espresso-soaked ladyfingers, mascarpone cream, and a dusting of premium cocoa.",
     price: 355,
     category: "Slices",
-    image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1550461716-dbf266b328a4?w=800&auto=format&fit=crop",
   },
   {
     id: "m09",

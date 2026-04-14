@@ -79,7 +79,7 @@ INSERT INTO "MenuItem" ("id","name","description","price","category","image","av
 ('m04','Cheese Cake Slice','A thick, creamy slice of classic cheesecake on a golden biscuit crust. Perfectly set, lightly tangy, utterly indulgent.',373,'Slices','https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop',true,true),
 ('m05','Brownie Cake Slice','A thick, fudgy brownie slice — crispy on the outside, soft and gooey within, with chunks of dark chocolate throughout.',300,'Slices','https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop',true,false),
 ('m06','Lemon Cake Slice','A bright, citrusy lemon sponge with zesty lemon curd filling and a delicate white glaze. Light yet satisfying.',355,'Slices','https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=800&auto=format&fit=crop',true,false),
-('m07','Tiramisu','Classic Italian tiramisu — layers of espresso-soaked ladyfingers, mascarpone cream, and a dusting of premium cocoa.',355,'Slices','https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop',true,true),
+('m07','Tiramisu','Classic Italian tiramisu — layers of espresso-soaked ladyfingers, mascarpone cream, and a dusting of premium cocoa.',355,'Slices','https://images.unsplash.com/photo-1550461716-dbf266b328a4?w=800&auto=format&fit=crop',true,true),
 ('m08','Fasting Chocolate Cake','Our most talked-about item. A rich, indulgent chocolate cake made entirely without animal products — perfect during fasting season.',391,'Slices','https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop',true,true),
 -- Desserts
 ('m09','Brownie with Ice Cream','A warm, gooey brownie served with a generous scoop of vanilla ice cream and a drizzle of hot chocolate sauce.',537,'Desserts','https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=800&auto=format&fit=crop',true,true),
@@ -110,7 +110,7 @@ INSERT INTO "GalleryImage" ("id","url","caption","sortOrder") VALUES
 ('g05','https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop','New York Cheesecake',5),
 ('g06','https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop','The Freak Shake',6),
 ('g07','https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=800&auto=format&fit=crop','Afternoon Tea Service',7),
-('g08','https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop','Classic Tiramisu',8)
+('g08','https://images.unsplash.com/photo-1550461716-dbf266b328a4?w=800&auto=format&fit=crop','Classic Tiramisu',8)
 ON CONFLICT ("id") DO NOTHING;
 
 -- 5. SAMPLE RESERVATIONS
