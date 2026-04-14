@@ -1,4 +1,5 @@
 import HeroSection from "@/components/sections/HeroSection";
+import PhotoStrip from "@/components/sections/PhotoStrip";
 import FeaturedItems from "@/components/sections/FeaturedItems";
 import AboutSnippet from "@/components/sections/AboutSnippet";
 import Testimonials from "@/components/sections/Testimonials";
@@ -23,6 +24,7 @@ export default async function HomePage() {
   return (
     <>
       <HeroSection />
+      <PhotoStrip />
       <FeaturedItems items={featured} />
       <AboutSnippet />
       <Testimonials />

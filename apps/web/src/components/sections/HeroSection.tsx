@@ -17,10 +17,10 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/cafe-interior.png"
+          src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1920&auto=format&fit=crop&q=80"
           alt="The Dessert Bar — Addis Ababa"
           fill
-          className="object-cover opacity-30"
+          className="object-cover opacity-40"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-chocolate-900/60 via-chocolate-900/40 to-chocolate-900/80" />
