@@ -17,7 +17,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1920&auto=format&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1920&auto=format&fit=crop&q=80"
           alt="The Dessert Bar — Addis Ababa"
           fill
           className="object-cover opacity-40"
