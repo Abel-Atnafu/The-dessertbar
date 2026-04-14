@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import AdminLayout from "@/components/AdminLayout";
 import { prisma } from "@dessertbar/db";
 import { ShoppingBag, Calendar, DollarSign, UtensilsCrossed } from "lucide-react";

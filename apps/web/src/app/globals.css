@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .card-dessert {
-    @apply bg-white overflow-hidden group cursor-pointer
+    @apply bg-white overflow-hidden cursor-pointer
            hover:shadow-2xl transition-all duration-500;
   }
 }

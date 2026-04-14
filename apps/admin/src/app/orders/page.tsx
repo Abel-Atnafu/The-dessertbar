@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import AdminLayout from "@/components/AdminLayout";
 import OrdersClient from "./OrdersClient";
 import { prisma } from "@dessertbar/db";
