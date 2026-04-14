@@ -64,10 +64,10 @@ CREATE TABLE IF NOT EXISTS "GalleryImage" (
   "createdAt" TIMESTAMP DEFAULT NOW()
 );
 
--- 2. ADMIN USER (password: admin123)
+-- 2. ADMIN USER (password: 209211)
 INSERT INTO "Admin" ("id","email","password","name") VALUES
-('admin01','admin@thedessertbar.com','$2a$12$q31BrcK1NX4iFtwaFbtiOOM6xjNKVqwaxI0PqMs.Rkf0oUrXyGj52','Admin')
-ON CONFLICT ("email") DO NOTHING;
+('admin01','admin@thedessertbar.com','$2a$12$tIGt6fTW7UJ0nOYf.r7KlOrk7yO4Qvqi39219oX9BQ.upjxZDM8de','Admin')
+ON CONFLICT ("email") DO UPDATE SET "password" = EXCLUDED."password";
 
 -- 3. MENU ITEMS (real menu, prices in ETB)
 INSERT INTO "MenuItem" ("id","name","description","price","category","image","available","featured") VALUES
