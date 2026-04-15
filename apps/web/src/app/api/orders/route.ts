@@ -6,7 +6,7 @@ import { prisma } from "@dessertbar/db";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { customerName, email, phone, notes, items, total } = body;
+    const { customerName, email, phone, notes, items, total, paymentMethod, paymentReference } = body;
 
     if (!customerName || !email || !phone || !items?.length) {
       return NextResponse.json(
@@ -22,6 +22,8 @@ export async function POST(req: NextRequest) {
         phone,
         notes: notes || null,
         total,
+        paymentMethod: paymentMethod || null,
+        paymentReference: paymentReference || null,
         items: {
           create: items.map((item: { menuItemId: string; quantity: number; price: number }) => ({
             menuItemId: item.menuItemId,

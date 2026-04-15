@@ -28,6 +28,8 @@ interface Order {
   total: number;
   status: string;
   notes?: string | null;
+  paymentMethod?: string | null;
+  paymentReference?: string | null;
   createdAt: string;
   items: OrderItem[];
 }
@@ -132,6 +134,19 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                         <p className="text-gray-500 text-xs">
                           <strong className="text-gray-700">Email:</strong> {order.email}
                         </p>
+                        {order.paymentMethod && (
+                          <p className="text-gray-500 text-xs">
+                            <strong className="text-gray-700">Payment:</strong>{" "}
+                            <span className={`capitalize font-medium ${order.paymentMethod === "telebirr" ? "text-green-700" : "text-gray-700"}`}>
+                              {order.paymentMethod === "telebirr" ? "Telebirr" : "Cash on Pickup"}
+                            </span>
+                            {order.paymentReference && (
+                              <span className="ml-2 font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded">
+                                Ref: {order.paymentReference}
+                              </span>
+                            )}
+                          </p>
+                        )}
                         {order.notes && (
                           <p className="text-gray-500 text-xs">
                             <strong className="text-gray-700">Notes:</strong> {order.notes}
