@@ -24,15 +24,18 @@ model MenuItem {
 }
 
 model Order {
-  id           String      @id @default(cuid())
-  customerName String
-  email        String
-  phone        String
-  items        OrderItem[]
-  total        Float
-  status       String      @default("pending")
-  notes        String?
-  createdAt    DateTime    @default(now())
+  id               String      @id @default(cuid())
+  customerName     String
+  email            String
+  phone            String
+  items            OrderItem[]
+  total            Float
+  status           String      @default("pending")
+  notes            String?
+  paymentMethod    String?
+  paymentReference String?
+  paymentScreenshot String?
+  createdAt        DateTime    @default(now())
 }
 
 model OrderItem {
