@@ -28,7 +28,7 @@ UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1572490122747
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Croissant Sandwich';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1517093157656-b9eccef91cb1?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Cinnamon Oats%';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Fasting Donut';
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1620921568956-c44f4bc71d72?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Fasting Cinnamon Roll';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Fasting Cinnamon Roll';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Cheese Donut';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Chocolate Chip Cookies';
 

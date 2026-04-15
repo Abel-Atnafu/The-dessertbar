@@ -181,7 +181,7 @@ async function main() {
           "A soft, spiraled cinnamon roll crafted without dairy — warmly spiced and glazed with a light sugar drizzle.",
         price: 154,
         category: "Pastries",
-        image: "https://images.unsplash.com/photo-1620921568956-c44f4bc71d72?w=800&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
