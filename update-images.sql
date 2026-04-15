@@ -29,7 +29,7 @@ UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1551024601-be
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop' WHERE "id" = 'm17';
 
 -- Drinks
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=800&auto=format&fit=crop' WHERE "id" = 'm18';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop' WHERE "id" = 'm18';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=800&auto=format&fit=crop' WHERE "id" = 'm19';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop' WHERE "id" = 'm20';
 

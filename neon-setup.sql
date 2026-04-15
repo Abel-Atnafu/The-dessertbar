@@ -83,7 +83,7 @@ INSERT INTO "MenuItem" ("id","name","description","price","category","image","av
 ('m08','Fasting Chocolate Cake','Our most talked-about item. A rich, indulgent chocolate cake made entirely without animal products — perfect during fasting season.',391,'Slices','https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop',true,true),
 -- Desserts
 ('m09','Brownie with Ice Cream','A warm, gooey brownie served with a generous scoop of vanilla ice cream and a drizzle of hot chocolate sauce.',537,'Desserts','https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=800&auto=format&fit=crop',true,true),
-('m10','Cookie Skillet & Ice Cream','A loaded cookie waffle skillet topped with scoops of chocolate and vanilla ice cream, an Oreo cookie, rainbow sprinkles, and a chocolate drizzle.',537,'Desserts','/images/cookie-skillet.png',true,true),
+('m10','Cookie Skillet & Ice Cream','A loaded cookie waffle skillet topped with scoops of chocolate and vanilla ice cream, an Oreo cookie, rainbow sprinkles, and a chocolate drizzle.',537,'Desserts','https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop',true,true),
 ('m11','Freak Shake','The ultimate dessert experience — a towering thick shake loaded with a slice of chocolate cake, whipped cream, and chocolate drizzle. Legendary.',729,'Desserts','https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop',true,true),
 -- Pastries
 ('m12','Croissant Sandwich','A flaky, buttery croissant filled with fresh avocado, layered ingredients, and served beautifully on a dark plate.',405,'Pastries','https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop',true,false),
@@ -103,9 +103,9 @@ ON CONFLICT ("id") DO NOTHING;
 
 -- 4. GALLERY IMAGES
 INSERT INTO "GalleryImage" ("id","url","caption","sortOrder") VALUES
-('g01','/images/cafe-interior.png','Our elegant dining space',1),
-('g02','/images/cookie-skillet.png','Cookie Skillet & Ice Cream',2),
-('g03','/images/mango-juice.png','Fresh Mango Smoothie',3),
+('g01','https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop','Our elegant dining space',1),
+('g02','https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop','Cookie Skillet & Ice Cream',2),
+('g03','https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop','Fresh Mango Smoothie',3),
 ('g04','https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop','Chocolate Torte',4),
 ('g05','https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=800&auto=format&fit=crop','New York Cheesecake',5),
 ('g06','https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop','The Freak Shake',6),

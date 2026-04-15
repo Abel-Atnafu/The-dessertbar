@@ -129,7 +129,7 @@ async function main() {
           "A loaded cookie waffle skillet topped with scoops of chocolate and vanilla ice cream, an Oreo cookie, rainbow sprinkles, and a chocolate drizzle.",
         price: 537,
         category: "Desserts",
-        image: "/images/cookie-skillet.png",
+        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop",
         available: true,
         featured: true,
       },
@@ -151,7 +151,7 @@ async function main() {
           "A flaky, buttery croissant filled with fresh avocado, layered ingredients, and served beautifully on a dark plate.",
         price: 405,
         category: "Pastries",
-        image: "/images/mango-juice.png",
+        image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&auto=format&fit=crop",
         available: true,
         featured: false,
       },
@@ -213,7 +213,7 @@ async function main() {
           "Fresh mango blended to a smooth, velvety pour — served chilled in a signature bottle glass, garnished with a fresh mango slice.",
         price: 237,
         category: "Drinks",
-        image: "/images/mango-juice.png",
+        image: "https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop",
         available: true,
         featured: true,
       },
@@ -266,17 +266,17 @@ async function main() {
   await prisma.galleryImage.createMany({
     data: [
       {
-        url: "/images/cafe-interior.png",
+        url: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop",
         caption: "Our elegant dining space",
         sortOrder: 1,
       },
       {
-        url: "/images/cookie-skillet.png",
+        url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop",
         caption: "Cookie Skillet & Ice Cream",
         sortOrder: 2,
       },
       {
-        url: "/images/mango-juice.png",
+        url: "https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop",
         caption: "Fresh Mango Smoothie",
         sortOrder: 3,
       },
