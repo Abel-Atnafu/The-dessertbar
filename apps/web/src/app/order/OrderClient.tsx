@@ -13,6 +13,8 @@ import {
   Truck,
   ExternalLink,
   Smartphone,
+  Upload,
+  X,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
@@ -22,7 +24,7 @@ const DELIVERY_APPS = [
   {
     name: "Ride",
     description: "Ride Ethiopia",
-    url: "https://ride.et",
+    url: "https://ride8294.com",
   },
   {
     name: "Fetan",
@@ -57,10 +59,34 @@ export default function OrderClient() {
   const [deliveryOption, setDeliveryOption] = useState<DeliveryOption>("pickup");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash");
   const [telebirrRef, setTelebirrRef] = useState("");
+  const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
+  const [screenshotBase64, setScreenshotBase64] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [successPayment, setSuccessPayment] = useState<PaymentMethod>("cash");
   const [error, setError] = useState("");
+
+  const handleScreenshot = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Screenshot must be under 5 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setScreenshotBase64(result);
+      setScreenshotPreview(result);
+      setError("");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const clearScreenshot = () => {
+    setScreenshotBase64(null);
+    setScreenshotPreview(null);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +94,10 @@ export default function OrderClient() {
 
     if (paymentMethod === "telebirr" && !telebirrRef.trim()) {
       setError("Please enter your Telebirr transaction reference number.");
+      return;
+    }
+    if (paymentMethod === "telebirr" && !screenshotBase64) {
+      setError("Please upload a screenshot of your Telebirr payment confirmation.");
       return;
     }
 
@@ -88,6 +118,7 @@ export default function OrderClient() {
           total,
           paymentMethod,
           paymentReference: paymentMethod === "telebirr" ? telebirrRef.trim() : null,
+          paymentScreenshot: paymentMethod === "telebirr" ? screenshotBase64 : null,
         }),
       });
 
@@ -489,11 +520,14 @@ export default function OrderClient() {
                           </div>
                           <ol className="text-xs text-green-700 space-y-1 list-decimal list-inside leading-relaxed" start={2}>
                             <li>
-                              After sending, copy the transaction reference
-                              number from your Telebirr confirmation message.
+                              Copy the transaction reference number from your
+                              Telebirr confirmation message and paste it below.
                             </li>
-                            <li>Paste it in the field below and place your order.</li>
+                            <li>Take a screenshot of the confirmation and upload it.</li>
+                            <li>Place your order — we&apos;ll verify and confirm by phone.</li>
                           </ol>
+
+                          {/* Transaction reference */}
                           <div>
                             <label className="block text-xs tracking-widest uppercase text-green-700 mb-2">
                               Transaction Reference *
@@ -508,6 +542,47 @@ export default function OrderClient() {
                               className="w-full border border-green-300 px-4 py-3 text-chocolate-800 focus:outline-none focus:border-green-500 text-sm bg-white font-mono"
                               placeholder="e.g. TB2024XXXXXXXX"
                             />
+                          </div>
+
+                          {/* Screenshot upload */}
+                          <div>
+                            <label className="block text-xs tracking-widest uppercase text-green-700 mb-2">
+                              Payment Screenshot *
+                            </label>
+                            {screenshotPreview ? (
+                              <div className="relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={screenshotPreview}
+                                  alt="Payment confirmation"
+                                  className="w-full max-h-56 object-contain border border-green-300 bg-white"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={clearScreenshot}
+                                  className="absolute top-1.5 right-1.5 bg-white border border-red-300 text-red-500 hover:bg-red-50 rounded-full p-0.5 transition-colors"
+                                  title="Remove screenshot"
+                                >
+                                  <X size={14} />
+                                </button>
+                              </div>
+                            ) : (
+                              <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-green-300 bg-white p-5 cursor-pointer hover:bg-green-50 transition-colors">
+                                <Upload size={22} className="text-green-500" />
+                                <span className="text-xs text-green-700 font-medium">
+                                  Tap to upload screenshot
+                                </span>
+                                <span className="text-xs text-green-500">
+                                  JPG, PNG or WEBP — max 5 MB
+                                </span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={handleScreenshot}
+                                />
+                              </label>
+                            )}
                           </div>
                         </div>
                       )}

@@ -30,6 +30,7 @@ interface Order {
   notes?: string | null;
   paymentMethod?: string | null;
   paymentReference?: string | null;
+  paymentScreenshot?: string | null;
   createdAt: string;
   items: OrderItem[];
 }
@@ -135,17 +136,32 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                           <strong className="text-gray-700">Email:</strong> {order.email}
                         </p>
                         {order.paymentMethod && (
-                          <p className="text-gray-500 text-xs">
-                            <strong className="text-gray-700">Payment:</strong>{" "}
-                            <span className={`capitalize font-medium ${order.paymentMethod === "telebirr" ? "text-green-700" : "text-gray-700"}`}>
-                              {order.paymentMethod === "telebirr" ? "Telebirr" : "Cash on Pickup"}
-                            </span>
-                            {order.paymentReference && (
-                              <span className="ml-2 font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded">
-                                Ref: {order.paymentReference}
+                          <div className="space-y-2">
+                            <p className="text-gray-500 text-xs">
+                              <strong className="text-gray-700">Payment:</strong>{" "}
+                              <span className={`capitalize font-medium ${order.paymentMethod === "telebirr" ? "text-green-700" : "text-gray-700"}`}>
+                                {order.paymentMethod === "telebirr" ? "Telebirr" : "Cash on Pickup"}
                               </span>
+                              {order.paymentReference && (
+                                <span className="ml-2 font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded">
+                                  Ref: {order.paymentReference}
+                                </span>
+                              )}
+                            </p>
+                            {order.paymentScreenshot && (
+                              <div>
+                                <p className="text-xs font-medium text-gray-700 mb-1">Payment Screenshot:</p>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={order.paymentScreenshot}
+                                  alt="Payment confirmation"
+                                  className="max-h-48 max-w-xs border border-gray-200 rounded object-contain bg-gray-50 cursor-pointer"
+                                  onClick={() => window.open(order.paymentScreenshot!, "_blank")}
+                                  title="Click to open full size"
+                                />
+                              </div>
                             )}
-                          </p>
+                          </div>
                         )}
                         {order.notes && (
                           <p className="text-gray-500 text-xs">
