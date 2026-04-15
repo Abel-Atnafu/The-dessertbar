@@ -7,17 +7,22 @@ export default function ContactClient() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      if (!res.ok) throw new Error("Failed");
       setSent(true);
+    } catch {
+      setError("Something went wrong. Please try again or call us directly.");
     } finally {
       setLoading(false);
     }
@@ -195,6 +200,9 @@ export default function ContactClient() {
                     placeholder="Tell us how we can help..."
                   />
                 </div>
+                {error && (
+                  <p className="text-red-500 text-sm">{error}</p>
+                )}
                 <button
                   type="submit"
                   disabled={loading}

@@ -17,11 +17,11 @@ UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1533134242443
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Brownie Cake Slice';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Lemon Cake Slice';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Tiramisu';
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Fasting Chocolate Cake';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Fasting Chocolate Cake';
 
 -- Desserts
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Brownie with Ice Cream';
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop' WHERE "name" ILIKE '%Cookie Skillet%';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&auto=format&fit=crop' WHERE "name" ILIKE '%Cookie Skillet%';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop' WHERE "name" ILIKE 'Freak Shake';
 
 -- Pastries
@@ -47,7 +47,7 @@ UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1567620905732
 UPDATE "GalleryImage" SET "url" = 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop'
   WHERE "url" LIKE '/images/cafe-interior%' OR "caption" ILIKE '%elegant dining%' OR "caption" ILIKE '%interior%';
 
-UPDATE "GalleryImage" SET "url" = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop'
+UPDATE "GalleryImage" SET "url" = 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=800&auto=format&fit=crop'
   WHERE "url" LIKE '/images/cookie-skillet%' OR "caption" ILIKE '%Cookie Skillet%';
 
 UPDATE "GalleryImage" SET "url" = 'https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop'
