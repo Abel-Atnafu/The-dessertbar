@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { formatPrice, formatDate } from "@/lib/utils";
 
 const STATUS_OPTIONS = ["pending", "confirmed", "ready", "completed", "cancelled"];
@@ -39,16 +39,22 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
   const [orders, setOrders] = useState(initialOrders);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [filter, setFilter] = useState("all");
+  const [error, setError] = useState("");
 
   const updateStatus = async (id: string, status: string) => {
-    await fetch(`/api/orders/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
-    setOrders((prev) =>
-      prev.map((o) => (o.id === id ? { ...o, status } : o))
-    );
+    const prev = orders.find((o) => o.id === id)?.status;
+    setOrders((all) => all.map((o) => (o.id === id ? { ...o, status } : o)));
+    try {
+      const res = await fetch(`/api/orders/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) throw new Error("Failed to update status");
+    } catch {
+      setError("Failed to update order status. Please try again.");
+      if (prev) setOrders((all) => all.map((o) => (o.id === id ? { ...o, status: prev } : o)));
+    }
   };
 
   const filtered =
@@ -56,6 +62,12 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
 
   return (
     <div>
+      {error && (
+        <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded">
+          {error}
+          <button onClick={() => setError("")} className="ml-3 text-red-400 hover:text-red-600 font-medium">Dismiss</button>
+        </div>
+      )}
       {/* Filter Tabs */}
       <div className="flex gap-2 mb-6 flex-wrap">
         {["all", ...STATUS_OPTIONS].map((s) => (
@@ -88,9 +100,8 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
           </thead>
           <tbody className="divide-y divide-gray-50">
             {filtered.map((order) => (
-              <>
+              <Fragment key={order.id}>
                 <tr
-                  key={order.id}
                   className="hover:bg-gray-50 transition-colors cursor-pointer"
                   onClick={() => setExpanded(expanded === order.id ? null : order.id)}
                 >
@@ -129,7 +140,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                   </td>
                 </tr>
                 {expanded === order.id && (
-                  <tr key={`${order.id}-expanded`} className="bg-gray-50">
+                  <tr className="bg-gray-50">
                     <td colSpan={6} className="px-6 py-4">
                       <div className="text-sm space-y-2">
                         <p className="text-gray-500 text-xs">
@@ -183,7 +194,7 @@ export default function OrdersClient({ initialOrders }: { initialOrders: Order[]
                     </td>
                   </tr>
                 )}
-              </>
+              </Fragment>
             ))}
             {filtered.length === 0 && (
               <tr>

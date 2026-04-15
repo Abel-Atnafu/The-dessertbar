@@ -24,7 +24,10 @@ async function getStats() {
       orderBy: { createdAt: "desc" },
       include: { items: { include: { menuItem: true } } },
     }),
-    prisma.order.aggregate({ _sum: { total: true } }),
+    prisma.order.aggregate({
+      _sum: { total: true },
+      where: { status: { notIn: ["cancelled"] } },
+    }),
   ]);
 
   return {

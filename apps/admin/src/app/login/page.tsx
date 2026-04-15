@@ -99,9 +99,6 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-gray-600 text-xs text-center mt-8">
-          admin@thedessertbar.com
-        </p>
       </div>
     </div>
   );

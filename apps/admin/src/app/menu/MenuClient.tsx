@@ -30,6 +30,7 @@ export default function MenuClient({ initialItems }: { initialItems: MenuItem[] 
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   const openCreate = () => {
     setEditItem(null);
@@ -54,49 +55,74 @@ export default function MenuClient({ initialItems }: { initialItems: MenuItem[] 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
     const data = { ...form, price: parseFloat(form.price) };
 
-    if (editItem) {
-      const res = await fetch(`/api/menu/${editItem.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      const updated = await res.json();
-      setItems((prev) => prev.map((i) => (i.id === editItem.id ? updated : i)));
-    } else {
-      const res = await fetch("/api/menu", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      const created = await res.json();
-      setItems((prev) => [created, ...prev]);
+    try {
+      if (editItem) {
+        const res = await fetch(`/api/menu/${editItem.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("Failed to update item");
+        const updated = await res.json();
+        setItems((prev) => prev.map((i) => (i.id === editItem.id ? updated : i)));
+      } else {
+        const res = await fetch("/api/menu", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("Failed to create item");
+        const created = await res.json();
+        setItems((prev) => [created, ...prev]);
+      }
+      setShowModal(false);
+    } catch {
+      setError("Failed to save menu item. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setShowModal(false);
-    setLoading(false);
   };
 
   const handleDelete = async (id: string) => {
-    await fetch(`/api/menu/${id}`, { method: "DELETE" });
-    setItems((prev) => prev.filter((i) => i.id !== id));
+    try {
+      const res = await fetch(`/api/menu/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete");
+      setItems((prev) => prev.filter((i) => i.id !== id));
+    } catch {
+      setError("Failed to delete item. Please try again.");
+    }
     setDeleteConfirm(null);
   };
 
   const toggleAvailable = async (item: MenuItem) => {
-    const res = await fetch(`/api/menu/${item.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...item, available: !item.available }),
-    });
-    const updated = await res.json();
-    setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, available: !i.available } : i)));
+    try {
+      const res = await fetch(`/api/menu/${item.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...item, available: !item.available }),
+      });
+      if (!res.ok) throw new Error("Failed to update");
+      const updated = await res.json();
+      setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    } catch {
+      setError("Failed to update availability. Please try again.");
+      setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, available: item.available } : i)));
+    }
   };
 
   return (
     <div>
+      {error && (
+        <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded">
+          {error}
+          <button onClick={() => setError("")} className="ml-3 text-red-400 hover:text-red-600 font-medium">Dismiss</button>
+        </div>
+      )}
       <div className="flex justify-end mb-6">
         <button onClick={openCreate} className="flex items-center gap-2 bg-yellow-500 text-gray-900 font-semibold px-5 py-2.5 text-sm hover:bg-yellow-400 transition-colors">
           <Plus size={16} />

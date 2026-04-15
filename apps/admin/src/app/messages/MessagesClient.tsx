@@ -16,6 +16,7 @@ interface Message {
 export default function MessagesClient({ initialMessages }: { initialMessages: Message[] }) {
   const [messages, setMessages] = useState(initialMessages);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
   const markRead = async (id: string, read: boolean) => {
     await fetch(`/api/messages/${id}`, {
@@ -27,10 +28,10 @@ export default function MessagesClient({ initialMessages }: { initialMessages: M
   };
 
   const deleteMessage = async (id: string) => {
-    if (!confirm("Delete this message?")) return;
     await fetch(`/api/messages/${id}`, { method: "DELETE" });
     setMessages((prev) => prev.filter((m) => m.id !== id));
     if (expanded === id) setExpanded(null);
+    setDeleteConfirm(null);
   };
 
   const toggle = (id: string) => {
@@ -97,13 +98,30 @@ export default function MessagesClient({ initialMessages }: { initialMessages: M
                 {formatDate(msg.createdAt)}
               </p>
               <div className="flex items-center gap-1 flex-shrink-0">
-                <button
-                  onClick={(e) => { e.stopPropagation(); deleteMessage(msg.id); }}
-                  className="p-1.5 text-gray-300 hover:text-red-400 transition-colors rounded"
-                  title="Delete"
-                >
-                  <Trash2 size={14} />
-                </button>
+                {deleteConfirm === msg.id ? (
+                  <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      onClick={() => deleteMessage(msg.id)}
+                      className="text-xs bg-red-500 text-white px-2 py-1 rounded font-medium"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setDeleteConfirm(null)}
+                      className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded font-medium"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setDeleteConfirm(msg.id); }}
+                    className="p-1.5 text-gray-300 hover:text-red-400 transition-colors rounded"
+                    title="Delete"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                )}
                 {expanded === msg.id ? (
                   <ChevronUp size={16} className="text-gray-400" />
                 ) : (
