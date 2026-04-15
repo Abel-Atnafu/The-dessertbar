@@ -49,7 +49,25 @@ const statusColors: Record<string, string> = {
 };
 
 export default async function DashboardPage() {
-  const stats = await getStats();
+  let stats;
+  try {
+    stats = await getStats();
+  } catch (error) {
+    console.error("Dashboard error:", error);
+    return (
+      <AdminLayout>
+        <div className="p-8">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          </div>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-red-700">
+            <p className="font-semibold mb-1">Failed to load dashboard data</p>
+            <p className="text-sm">Could not connect to the database. Please check your DATABASE_URL environment variable and ensure the database is accessible.</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
