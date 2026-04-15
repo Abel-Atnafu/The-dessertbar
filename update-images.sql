@@ -24,12 +24,12 @@ UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1572490122747
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&auto=format&fit=crop' WHERE "id" = 'm12';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1517093157656-b9eccef91cb1?w=800&auto=format&fit=crop' WHERE "id" = 'm13';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop' WHERE "id" = 'm14';
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1620921568956-c44f4bc71d72?w=800&auto=format&fit=crop' WHERE "id" = 'm15';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=800&auto=format&fit=crop' WHERE "id" = 'm15';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&auto=format&fit=crop' WHERE "id" = 'm16';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&auto=format&fit=crop' WHERE "id" = 'm17';
 
 -- Drinks
-UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=800&auto=format&fit=crop' WHERE "id" = 'm18';
+UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1546173159-315724a31696?w=800&auto=format&fit=crop' WHERE "id" = 'm18';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=800&auto=format&fit=crop' WHERE "id" = 'm19';
 UPDATE "MenuItem" SET "image" = 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop' WHERE "id" = 'm20';
 

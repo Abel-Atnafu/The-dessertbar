@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Phone, Clock, Instagram, Facebook } from "lucide-react";
+import { MapPin, Phone, Clock, Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -78,25 +78,20 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="text-gold-500 flex-shrink-0" />
-                <a href="https://www.instagram.com/the_dessert_bar_addis" target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">
-                  @the_dessert_bar_addis
+                <a href="tel:+251900182929" className="hover:text-gold-400 transition-colors">
+                  +251 90 018 2929
                 </a>
               </li>
             </ul>
             <div className="flex gap-4 mt-6">
               <a
-                href="#"
+                href="https://www.instagram.com/the_dessert_bar_addis"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-cream-200 opacity-60 hover:opacity-100 hover:text-gold-500 transition-all"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-cream-200 opacity-60 hover:opacity-100 hover:text-gold-500 transition-all"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
               </a>
             </div>
           </div>

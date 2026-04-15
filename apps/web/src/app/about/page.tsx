@@ -51,7 +51,7 @@ export default function AboutPage() {
                   desserts are worth writing home about.
                 </p>
                 <p>
-                  Six years later, we&apos;ve grown from a three-table cafe into
+                  Eight years later, we&apos;ve grown from a three-table cafe into
                   a beloved neighbourhood institution — but our philosophy
                   hasn&apos;t changed: every dessert we serve is handcrafted with
                   the same passion, precision, and love as the very first one.
@@ -103,7 +103,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { num: "8+", label: "Years Open" },
-              { num: "50+", label: "Menu Items" },
+              { num: "22+", label: "Menu Items" },
               { num: "10k+", label: "Happy Guests" },
               { num: "4.9★", label: "Average Rating" },
             ].map((s) => (

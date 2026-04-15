@@ -1,23 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, CheckCircle } from "lucide-react";
+import { MapPin, Instagram, Mail, Clock, CheckCircle, Phone } from "lucide-react";
 
 export default function ContactClient() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      if (!res.ok) throw new Error("Failed");
       setSent(true);
+    } catch {
+      setError("Something went wrong. Please try again or call us directly.");
     } finally {
       setLoading(false);
     }
@@ -53,6 +58,22 @@ export default function ContactClient() {
                 <div>
                   <p className="font-semibold text-chocolate-800 text-sm tracking-wide mb-1">
                     Phone
+                  </p>
+                  <a
+                    href="tel:+251900182929"
+                    className="text-chocolate-500 text-sm hover:text-gold-600 transition-colors"
+                  >
+                    +251 90 018 2929
+                  </a>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 bg-gold-500 flex items-center justify-center flex-shrink-0">
+                  <Instagram size={18} className="text-chocolate-800" />
+                </div>
+                <div>
+                  <p className="font-semibold text-chocolate-800 text-sm tracking-wide mb-1">
+                    Instagram
                   </p>
                   <a
                     href="https://www.instagram.com/the_dessert_bar_addis"
@@ -97,21 +118,26 @@ export default function ContactClient() {
               </div>
             </div>
 
-            {/* Map placeholder */}
-            <div className="mt-10 bg-cream-200 h-64 flex items-center justify-center border border-cream-300">
-              <div className="text-center text-chocolate-400">
-                <MapPin size={32} className="mx-auto mb-2 text-gold-500" />
-                <p className="text-sm font-medium text-chocolate-600">Bole, Atlas — beside Azzeman Hotel</p>
-                <p className="text-xs text-chocolate-400 mt-1">Addis Ababa, Ethiopia</p>
-                <a
-                  href="https://maps.app.goo.gl/55npJ2CkU4CuLvAB6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gold-600 text-xs mt-3 block hover:underline"
-                >
-                  Open in Google Maps →
-                </a>
-              </div>
+            {/* Google Maps embed */}
+            <div className="mt-10">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.494836497583!2d38.78717!3d9.010044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85ba46b8b0e7%3A0x7d3be1be17aa95cc!2sAzzeman%20Hotel!5e0!3m2!1sen!2set!4v1713000000000!5m2!1sen!2set"
+                width="100%"
+                height="256"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="The Dessert Bar location"
+              />
+              <a
+                href="https://maps.app.goo.gl/55npJ2CkU4CuLvAB6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold-600 text-xs mt-2 block hover:underline"
+              >
+                Open in Google Maps →
+              </a>
             </div>
           </div>
 
@@ -174,6 +200,9 @@ export default function ContactClient() {
                     placeholder="Tell us how we can help..."
                   />
                 </div>
+                {error && (
+                  <p className="text-red-500 text-sm">{error}</p>
+                )}
                 <button
                   type="submit"
                   disabled={loading}
