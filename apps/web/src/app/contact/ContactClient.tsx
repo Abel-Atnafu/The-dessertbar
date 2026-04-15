@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Instagram, Mail, Clock, CheckCircle } from "lucide-react";
+import { MapPin, Instagram, Mail, Clock, CheckCircle, Phone } from "lucide-react";
 
 export default function ContactClient() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -44,6 +44,22 @@ export default function ContactClient() {
                   <p className="text-chocolate-500 text-sm leading-relaxed">
                     Bole, Atlas — beside Azzeman Hotel,<br />Addis Ababa, Ethiopia
                   </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 bg-gold-500 flex items-center justify-center flex-shrink-0">
+                  <Phone size={18} className="text-chocolate-800" />
+                </div>
+                <div>
+                  <p className="font-semibold text-chocolate-800 text-sm tracking-wide mb-1">
+                    Phone
+                  </p>
+                  <a
+                    href="tel:+251900182929"
+                    className="text-chocolate-500 text-sm hover:text-gold-600 transition-colors"
+                  >
+                    +251 90 018 2929
+                  </a>
                 </div>
               </div>
               <div className="flex gap-4">

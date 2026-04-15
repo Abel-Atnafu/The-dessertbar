@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, UtensilsCrossed, ShoppingBag, Calendar,
-  Images, LogOut, Menu, X, ChefHat
+  Images, LogOut, Menu, X, ChefHat, MessageSquare
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ const navItems = [
   { href: "/orders", label: "Orders", icon: ShoppingBag },
   { href: "/reservations", label: "Reservations", icon: Calendar },
   { href: "/gallery", label: "Gallery", icon: Images },
+  { href: "/messages", label: "Messages", icon: MessageSquare },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

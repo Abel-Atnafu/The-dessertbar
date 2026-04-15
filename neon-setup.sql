@@ -56,6 +56,15 @@ CREATE TABLE IF NOT EXISTS "Reservation" (
   "createdAt" TIMESTAMP DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS "ContactMessage" (
+  "id"        TEXT PRIMARY KEY,
+  "name"      TEXT NOT NULL,
+  "email"     TEXT NOT NULL,
+  "message"   TEXT NOT NULL,
+  "read"      BOOLEAN DEFAULT FALSE,
+  "createdAt" TIMESTAMP DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS "GalleryImage" (
   "id"        TEXT PRIMARY KEY,
   "url"       TEXT NOT NULL,
