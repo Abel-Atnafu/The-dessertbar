@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import MenuClient from "./MenuClient";
 import Footer from "@/components/Footer";
 import { prisma } from "@dessertbar/db";
