@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, UtensilsCrossed, ShoppingBag, Calendar,
-  Images, LogOut, Menu, X, ChefHat, MessageSquare
+  Images, LogOut, Menu, X, ChefHat, MessageSquare, CakeSlice
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/menu", label: "Menu", icon: UtensilsCrossed },
   { href: "/orders", label: "Orders", icon: ShoppingBag },
+  { href: "/cakes", label: "Custom Cakes", icon: CakeSlice },
   { href: "/reservations", label: "Reservations", icon: Calendar },
   { href: "/gallery", label: "Gallery", icon: Images },
   { href: "/messages", label: "Messages", icon: MessageSquare },

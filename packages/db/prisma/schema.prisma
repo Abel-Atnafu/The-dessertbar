@@ -85,3 +85,23 @@ model ContactMessage {
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model CustomCakeOrder {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  occasion    String
+  cakeSize    String
+  layers      Int      @default(1)
+  flavor      String
+  frosting    String
+  design      String
+  colors      String?
+  pickupDate  String
+  pickupTime  String
+  budget      Float?
+  notes       String?
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+}
