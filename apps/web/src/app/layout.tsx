@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import { Toaster } from "@/components/ui/Toaster";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "The Dessert Bar — Fine Patisserie & Cafe",
@@ -20,12 +22,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          <Navbar />
-          <main>{children}</main>
-          <CartDrawer />
-          <Toaster />
-        </CartProvider>
+        <LanguageProvider>
+          <CartProvider>
+            <Navbar />
+            <main>{children}</main>
+            <CartDrawer />
+            <Toaster />
+            <WhatsAppButton />
+          </CartProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

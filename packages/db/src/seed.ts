@@ -4,15 +4,13 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Seeding database with real menu...");
+  const existing = await prisma.menuItem.count();
+  if (existing > 0) {
+    console.log("✅ Database already seeded — skipping.");
+    return;
+  }
 
-  // Clear existing data
-  await prisma.orderItem.deleteMany();
-  await prisma.order.deleteMany();
-  await prisma.reservation.deleteMany();
-  await prisma.galleryImage.deleteMany();
-  await prisma.menuItem.deleteMany();
-  await prisma.admin.deleteMany();
+  console.log("🌱 Seeding database with real menu...");
 
   // Create admin user
   const hashedPassword = await bcrypt.hash("admin123", 12);

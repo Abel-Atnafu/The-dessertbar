@@ -33,12 +33,14 @@ const DELIVERY_APPS = [
   },
 ];
 
-// Telebirr number customers should send payment to
+// Payment account details — update these with the actual business accounts
 const TELEBIRR_NUMBER = "+251 90 018 2929";
+const CBE_BIRR_ACCOUNT = "1000285634719";
+const HELLOCASH_NUMBER = "+251 96 381 4702";
 // ──────────────────────────────────────────────────────────────────────────
 
 type DeliveryOption = "pickup" | "delivery";
-type PaymentMethod = "cash" | "telebirr";
+type PaymentMethod = "cash" | "telebirr" | "cbebirr" | "hellocash";
 
 interface FormData {
   customerName: string;
@@ -63,6 +65,7 @@ export default function OrderClient() {
   const [screenshotBase64, setScreenshotBase64] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [successOrderId, setSuccessOrderId] = useState<string | null>(null);
   const [successPayment, setSuccessPayment] = useState<PaymentMethod>("cash");
   const [error, setError] = useState("");
 
@@ -92,12 +95,13 @@ export default function OrderClient() {
     e.preventDefault();
     if (state.items.length === 0) return;
 
-    if (paymentMethod === "telebirr" && !telebirrRef.trim()) {
-      setError("Please enter your Telebirr transaction reference number.");
+    const mobilePayment = paymentMethod === "telebirr" || paymentMethod === "cbebirr" || paymentMethod === "hellocash";
+    if (mobilePayment && !telebirrRef.trim()) {
+      setError("Please enter your transaction reference number.");
       return;
     }
-    if (paymentMethod === "telebirr" && !screenshotBase64) {
-      setError("Please upload a screenshot of your Telebirr payment confirmation.");
+    if (mobilePayment && !screenshotBase64) {
+      setError("Please upload a screenshot of your payment confirmation.");
       return;
     }
 
@@ -105,6 +109,7 @@ export default function OrderClient() {
     setError("");
 
     try {
+      const mobilePayment = paymentMethod === "telebirr" || paymentMethod === "cbebirr" || paymentMethod === "hellocash";
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -117,13 +122,15 @@ export default function OrderClient() {
           })),
           total,
           paymentMethod,
-          paymentReference: paymentMethod === "telebirr" ? telebirrRef.trim() : null,
-          paymentScreenshot: paymentMethod === "telebirr" ? screenshotBase64 : null,
+          paymentReference: mobilePayment ? telebirrRef.trim() : null,
+          paymentScreenshot: mobilePayment ? screenshotBase64 : null,
         }),
       });
 
       if (!res.ok) throw new Error("Failed to place order");
+      const data = await res.json();
       dispatch({ type: "CLEAR_CART" });
+      setSuccessOrderId(data.id ?? null);
       setSuccessPayment(paymentMethod);
       setSuccess(true);
     } catch {
@@ -134,6 +141,8 @@ export default function OrderClient() {
   };
 
   if (success) {
+    const mobilePayment = successPayment === "telebirr" || successPayment === "cbebirr" || successPayment === "hellocash";
+    const paymentLabel = successPayment === "telebirr" ? "Telebirr" : successPayment === "cbebirr" ? "CBE Birr" : "HelloCash";
     return (
       <div className="min-h-screen bg-cream-100 flex items-center justify-center px-6 py-20">
         <div className="text-center max-w-md">
@@ -145,16 +154,25 @@ export default function OrderClient() {
             Thank you for your order. We&apos;ll call you shortly to confirm and
             let you know when it&apos;s ready.
           </p>
-          {successPayment === "telebirr" ? (
-            <div className="bg-white p-4 mb-8 text-sm text-chocolate-600 leading-relaxed">
+          {mobilePayment ? (
+            <div className="bg-white p-4 mb-4 text-sm text-chocolate-600 leading-relaxed">
               <Smartphone size={18} className="text-green-600 inline mr-2 mb-0.5" />
-              Your Telebirr payment reference has been recorded. We&apos;ll
+              Your {paymentLabel} payment reference has been recorded. We&apos;ll
               verify it and confirm your order by phone.
             </div>
           ) : (
-            <div className="bg-white p-4 mb-8 text-sm text-chocolate-600 leading-relaxed">
+            <div className="bg-white p-4 mb-4 text-sm text-chocolate-600 leading-relaxed">
               Please have <strong>cash ready</strong> when you collect your
               order.
+            </div>
+          )}
+          {successOrderId && (
+            <div className="bg-white border border-gold-300 p-4 mb-8 text-sm">
+              <p className="text-chocolate-400 text-xs tracking-widest uppercase mb-1">Order Number</p>
+              <p className="font-mono font-bold text-chocolate-800 text-base mb-3">{successOrderId}</p>
+              <Link href={`/track/${successOrderId}`} className="text-gold-600 hover:text-gold-700 text-xs font-semibold tracking-wider uppercase underline underline-offset-2">
+                Track Your Order →
+              </Link>
             </div>
           )}
           <Link href="/menu" className="btn-gold">
@@ -478,21 +496,64 @@ export default function OrderClient() {
                             name="payment"
                             value="telebirr"
                             checked={paymentMethod === "telebirr"}
-                            onChange={() => {
-                              setPaymentMethod("telebirr");
-                              setError("");
-                            }}
+                            onChange={() => { setPaymentMethod("telebirr"); setError(""); }}
                             className="accent-gold-500"
                           />
                           <div className="flex items-center gap-2">
                             <Smartphone size={15} className="text-green-600" />
                             <div>
-                              <span className="text-sm font-semibold text-chocolate-800">
-                                Telebirr
-                              </span>
-                              <p className="text-xs text-chocolate-400">
-                                Pay via Ethio Telecom mobile money
-                              </p>
+                              <span className="text-sm font-semibold text-chocolate-800">Telebirr</span>
+                              <p className="text-xs text-chocolate-400">Ethio Telecom mobile money</p>
+                            </div>
+                          </div>
+                        </label>
+
+                        {/* CBE Birr */}
+                        <label
+                          className={`flex items-center gap-3 p-3.5 border cursor-pointer transition-colors ${
+                            paymentMethod === "cbebirr"
+                              ? "border-gold-500 bg-gold-50"
+                              : "border-cream-200 hover:border-cream-300"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="payment"
+                            value="cbebirr"
+                            checked={paymentMethod === "cbebirr"}
+                            onChange={() => { setPaymentMethod("cbebirr"); setTelebirrRef(""); clearScreenshot(); setError(""); }}
+                            className="accent-gold-500"
+                          />
+                          <div className="flex items-center gap-2">
+                            <Smartphone size={15} className="text-blue-600" />
+                            <div>
+                              <span className="text-sm font-semibold text-chocolate-800">CBE Birr</span>
+                              <p className="text-xs text-chocolate-400">Commercial Bank of Ethiopia</p>
+                            </div>
+                          </div>
+                        </label>
+
+                        {/* HelloCash */}
+                        <label
+                          className={`flex items-center gap-3 p-3.5 border cursor-pointer transition-colors ${
+                            paymentMethod === "hellocash"
+                              ? "border-gold-500 bg-gold-50"
+                              : "border-cream-200 hover:border-cream-300"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="payment"
+                            value="hellocash"
+                            checked={paymentMethod === "hellocash"}
+                            onChange={() => { setPaymentMethod("hellocash"); setTelebirrRef(""); clearScreenshot(); setError(""); }}
+                            className="accent-gold-500"
+                          />
+                          <div className="flex items-center gap-2">
+                            <Smartphone size={15} className="text-purple-600" />
+                            <div>
+                              <span className="text-sm font-semibold text-chocolate-800">HelloCash</span>
+                              <p className="text-xs text-chocolate-400">Amhara Bank mobile wallet</p>
                             </div>
                           </div>
                         </label>
@@ -587,6 +648,86 @@ export default function OrderClient() {
                         </div>
                       )}
                     </div>
+
+                      {/* CBE Birr instructions */}
+                      {paymentMethod === "cbebirr" && (
+                        <div className="mt-3 bg-blue-50 border border-blue-200 p-4 space-y-3">
+                          <p className="text-xs text-blue-800 font-semibold uppercase tracking-wider">How to pay with CBE Birr</p>
+                          <ol className="text-xs text-blue-700 space-y-1 list-decimal list-inside leading-relaxed">
+                            <li>Open your CBE Birr app and send <strong>{formatPrice(total)}</strong> to:</li>
+                          </ol>
+                          <div className="bg-white border border-blue-300 rounded px-4 py-2.5 text-center">
+                            <p className="text-xs text-blue-600 tracking-widest uppercase mb-1">CBE Account</p>
+                            <p className="font-mono font-bold text-blue-800 text-lg">{CBE_BIRR_ACCOUNT}</p>
+                          </div>
+                          <ol className="text-xs text-blue-700 space-y-1 list-decimal list-inside leading-relaxed" start={2}>
+                            <li>Copy the transaction reference from your confirmation and paste it below.</li>
+                            <li>Take a screenshot and upload it, then place your order.</li>
+                          </ol>
+                          <div>
+                            <label className="block text-xs tracking-widest uppercase text-blue-700 mb-2">Transaction Reference *</label>
+                            <input type="text" value={telebirrRef} onChange={(e) => { setTelebirrRef(e.target.value); setError(""); }}
+                              className="w-full border border-blue-300 px-4 py-3 text-chocolate-800 focus:outline-none focus:border-blue-500 text-sm bg-white font-mono"
+                              placeholder="e.g. CBE2024XXXXXXXX" />
+                          </div>
+                          <div>
+                            <label className="block text-xs tracking-widest uppercase text-blue-700 mb-2">Payment Screenshot *</label>
+                            {screenshotPreview ? (
+                              <div className="relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={screenshotPreview} alt="Payment confirmation" className="w-full max-h-56 object-contain border border-blue-300 bg-white" />
+                                <button type="button" onClick={clearScreenshot} className="absolute top-1.5 right-1.5 bg-white border border-red-300 text-red-500 hover:bg-red-50 rounded-full p-0.5"><X size={14} /></button>
+                              </div>
+                            ) : (
+                              <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-blue-300 bg-white p-5 cursor-pointer hover:bg-blue-50 transition-colors">
+                                <Upload size={22} className="text-blue-500" />
+                                <span className="text-xs text-blue-700 font-medium">Tap to upload screenshot</span>
+                                <input type="file" accept="image/*" className="hidden" onChange={handleScreenshot} />
+                              </label>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* HelloCash instructions */}
+                      {paymentMethod === "hellocash" && (
+                        <div className="mt-3 bg-purple-50 border border-purple-200 p-4 space-y-3">
+                          <p className="text-xs text-purple-800 font-semibold uppercase tracking-wider">How to pay with HelloCash</p>
+                          <ol className="text-xs text-purple-700 space-y-1 list-decimal list-inside leading-relaxed">
+                            <li>Open your HelloCash app and send <strong>{formatPrice(total)}</strong> to:</li>
+                          </ol>
+                          <div className="bg-white border border-purple-300 rounded px-4 py-2.5 text-center">
+                            <p className="text-xs text-purple-600 tracking-widest uppercase mb-1">HelloCash Number</p>
+                            <p className="font-mono font-bold text-purple-800 text-lg">{HELLOCASH_NUMBER}</p>
+                          </div>
+                          <ol className="text-xs text-purple-700 space-y-1 list-decimal list-inside leading-relaxed" start={2}>
+                            <li>Copy the transaction reference from your confirmation and paste it below.</li>
+                            <li>Take a screenshot and upload it, then place your order.</li>
+                          </ol>
+                          <div>
+                            <label className="block text-xs tracking-widest uppercase text-purple-700 mb-2">Transaction Reference *</label>
+                            <input type="text" value={telebirrRef} onChange={(e) => { setTelebirrRef(e.target.value); setError(""); }}
+                              className="w-full border border-purple-300 px-4 py-3 text-chocolate-800 focus:outline-none focus:border-purple-500 text-sm bg-white font-mono"
+                              placeholder="e.g. HC2024XXXXXXXX" />
+                          </div>
+                          <div>
+                            <label className="block text-xs tracking-widest uppercase text-purple-700 mb-2">Payment Screenshot *</label>
+                            {screenshotPreview ? (
+                              <div className="relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={screenshotPreview} alt="Payment confirmation" className="w-full max-h-56 object-contain border border-purple-300 bg-white" />
+                                <button type="button" onClick={clearScreenshot} className="absolute top-1.5 right-1.5 bg-white border border-red-300 text-red-500 hover:bg-red-50 rounded-full p-0.5"><X size={14} /></button>
+                              </div>
+                            ) : (
+                              <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-purple-300 bg-white p-5 cursor-pointer hover:bg-purple-50 transition-colors">
+                                <Upload size={22} className="text-purple-500" />
+                                <span className="text-xs text-purple-700 font-medium">Tap to upload screenshot</span>
+                                <input type="file" accept="image/*" className="hidden" onChange={handleScreenshot} />
+                              </label>
+                            )}
+                          </div>
+                        </div>
+                      )}
 
                     {error && (
                       <p className="text-red-500 text-sm">{error}</p>

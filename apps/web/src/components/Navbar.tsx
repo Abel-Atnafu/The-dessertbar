@@ -4,20 +4,23 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { href: "/menu", label: "Menu" },
-  { href: "/reservations", label: "Reserve" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { itemCount, dispatch } = useCart();
+  const { lang, setLang, t } = useLanguage();
+
+  const navLinks = [
+    { href: "/menu", label: t.nav.menu },
+    { href: "/custom-cake", label: t.nav.customCake },
+    { href: "/reservations", label: t.nav.reserve },
+    { href: "/gallery", label: t.nav.gallery },
+    { href: "/about", label: t.nav.about },
+    { href: "/contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -58,8 +61,16 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Cart + Mobile Toggle */}
+        {/* Cart + Lang + Mobile Toggle */}
         <div className="flex items-center gap-4">
+          {/* Language toggle */}
+          <button
+            onClick={() => setLang(lang === "en" ? "am" : "en")}
+            className="text-cream-200 hover:text-gold-500 transition-colors text-xs font-semibold tracking-widest uppercase border border-cream-200/30 hover:border-gold-500/50 px-2 py-1 rounded-sm"
+            aria-label="Toggle language"
+          >
+            {lang === "en" ? "አማ" : "EN"}
+          </button>
           <button
             onClick={() => dispatch({ type: "TOGGLE_CART" })}
             className="relative text-cream-200 hover:text-gold-500 transition-colors"
@@ -102,7 +113,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="btn-gold text-center mt-2"
             >
-              Order Now
+              {t.nav.orderNow}
             </Link>
           </nav>
         </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { formatPrice } from "@/lib/utils";
 
 interface MenuItem {
@@ -25,6 +26,7 @@ export default function MenuClient({
 }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const { dispatch } = useCart();
+  const { t } = useLanguage();
 
   const allCategories = ["All", ...categories];
   const filtered =
@@ -71,7 +73,7 @@ export default function MenuClient({
                 )}
                 {item.featured && (
                   <span className="absolute top-3 left-3 bg-gold-500 text-chocolate-800 text-xs font-bold px-2 py-0.5 tracking-wider uppercase">
-                    Featured
+                    {t.menu.featured}
                   </span>
                 )}
               </div>
@@ -103,7 +105,7 @@ export default function MenuClient({
                   className="w-full flex items-center justify-center gap-2 bg-cream-100 hover:bg-chocolate-800 hover:text-cream-100 text-chocolate-700 text-xs font-semibold tracking-widest uppercase py-2.5 transition-all duration-300"
                 >
                   <Plus size={14} />
-                  Add to Order
+                  {t.menu.addToOrder}
                 </button>
               </div>
             </div>
@@ -112,7 +114,7 @@ export default function MenuClient({
 
         {filtered.length === 0 && (
           <div className="text-center py-20 text-chocolate-400">
-            <p className="font-serif text-2xl">No items in this category</p>
+            <p className="font-serif text-2xl">{t.menu.noItems}</p>
           </div>
         )}
       </div>

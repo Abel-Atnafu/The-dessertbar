@@ -8,8 +8,8 @@ const JWT_SECRET = new TextEncoder().encode(
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow login page and API routes
-  if (pathname.startsWith("/login") || pathname.startsWith("/api")) {
+  // Allow login page and the login API endpoint only
+  if (pathname.startsWith("/login") || pathname === "/api/auth/login") {
     return NextResponse.next();
   }
 
