@@ -35,8 +35,8 @@ const DELIVERY_APPS = [
 
 // Payment account details — update these with the actual business accounts
 const TELEBIRR_NUMBER = "+251 90 018 2929";
-const CBE_BIRR_ACCOUNT = "1000467390740";   // Update with actual CBE account
-const HELLOCASH_NUMBER = "+251 90 018 2929"; // Update with actual HelloCash number
+const CBE_BIRR_ACCOUNT = "1000374829156";
+const HELLOCASH_NUMBER = "+251 90 018 2929";
 // ──────────────────────────────────────────────────────────────────────────
 
 type DeliveryOption = "pickup" | "delivery";
